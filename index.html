@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>燕雲十六聲 - 生活暴擊率料理位置</title>
+    <style>
+        body {font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif; margin:40px; background:#fdf6e3; color:#333;}
+        h1 {text-align:center; color:#8b4513; margin-bottom:20px;}
+        h2 {color:#b8860b; border-bottom:3px solid #daa520; padding-bottom:8px; margin-top:60px;}
+        table {width:100%; border-collapse:collapse; margin:25px 0; table-layout:fixed;}
+        th, td {border:2px solid #d2b48c; padding:8px; text-align:center; vertical-align:middle;}
+        th {background:#faebd7; font-weight:bold;}
+
+        /* 圖片格子樣式（重點） */
+        .img-box {
+            position: relative;
+            width: 100%;
+            height: 120px;                     /* 表格內圖片高度（可自行調 100~140） */
+            border: 3px solid #c19a6b;         /* 永遠可見的漂亮邊框 */
+            background: #f8f1e9;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .img-box:hover {
+            border-color: #b8860b;
+            box-shadow: 0 0 12px rgba(184,134,11,0.5);
+        }
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 沒圖時的提示文字 */
+        .img-box::before {
+            content: "請放入圖片\APNG / JPG";
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(248,241,233,0.95);
+            color: #999;
+            font-size: 14px;
+            white-space: pre;
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* 有圖就自動隱藏提示 */
+        .img-box img[src$=".png"],
+        .img-box img[src$=".jpg"],
+        .img-box img[src$=".jpeg"] {
+            position: relative;
+            z-index: 2;
+        }
+        .img-box img[src$=".png"] ~ ::before,
+        .img-box img[src$=".jpg"] ~ ::before,
+        .img-box img[src$=".jpeg"] ~ ::before {
+            display: none;
+        }
+
+        /* 放大燈箱 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active {display: flex;}
+        .lightbox img {max-width: 92%; max-height: 92vh; border: 6px solid #fff; border-radius: 8px;}
+        .close {position: absolute; top: 15px; right: 30px; color: #fff; font-size: 60px; cursor: pointer;}
+    </style>
+</head>
+<body>
+
+<h1>燕雲十六聲 - 生活暴擊率料理位置</h1>
+
+<h2>清河地區</h2>
+<table>
+    <tr><th>攤販位置</th><th>位置圖（點擊放大）</th><th>招牌菜（15短陌錢）</th><th>私房菜（50短陌錢）</th></tr>
+    <tr><td>元甜甜 - 神仙渡</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/元甜甜-神仙渡.png"></td><td>蜜汁梨球<br>釣魚暴擊率+7.5%，20分鐘</td><td>八寶梨罐<br>釣魚暴擊率+15%，20分鐘</td></tr>
+    <tr><td>元咸咸 - 神仙渡</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/元咸咸-神仙渡.png"></td><td>把子肉<br>狩獵暴擊率+7.5%，20分鐘</td><td>酥鍋<br>狩獵暴擊率+15%，20分鐘</td></tr>
+    <tr><td>燕豐子 - 豐禾村</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/燕豐子-豐禾村.png"></td><td>醬炒田螺<br>採藥暴擊率+7.5%，20分鐘</td><td>螺絲肉<br>採藥暴擊率+15%，20分鐘</td></tr>
+    <tr><td>潘明榮 - 慈心鎮</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/潘明榮-慈心鎮.png"></td><td>棗蒸餅<br>採藥暴擊率+7.5%，20分鐘</td><td>七寶蒸餅<br>採藥暴擊率+15%，20分鐘</td></tr>
+    <tr><td>李大娘 - 伏馬莊</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/李大娘-伏馬莊.png"></td><td>馬酥酪<br>挖礦暴擊率+7.5%，20分鐘</td><td>辣酥酪<br>挖礦暴擊率+15%，20分鐘</td></tr>
+</table>
+
+<h2>開封地區</h2>
+<table>
+    <tr><th>攤販位置</th><th>位置圖（點擊放大）</th><th>招牌菜（15短陌錢）</th><th>私房菜（50短陌錢）</th></tr>
+    <tr><td>牛莽 - 角門里</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/牛莽-角門里.png"></td><td>麥飯<br>採藥+10%，10分鐘</td><td>炒雞麵<br>採藥+20%，10分鐘</td></tr>
+    <tr><td>於不遲 - 南門大街</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/于不遲-南門大街.png"></td><td>鮮魚麵<br>採藥+10%、挖礦+10%，20分鐘</td><td>汆魚圓<br>採藥+20%、挖礦+20%，20分鐘</td></tr>
+    <tr><td>沈二 - 南門大街</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/沈二-南門大街.png"></td><td>柳葉韭<br>砍伐+10%、挖礦+10%，20分鐘</td><td>假煎肉<br>砍伐+20%、挖礦+20%，20分鐘</td></tr>
+    <tr><td>夜辛 - 勾欄瓦肆</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/夜辛-勾欄瓦肆.png"></td><td>批切羊頭<br>釣魚+10%，10分鐘</td><td>凍薑醬蹄子<br>釣魚+20%，10分鐘</td></tr>
+    <tr><td>蕭善仁 - 勾欄瓦肆</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/蕭善仁-勾欄瓦肆.png"></td><td>茶蘼粥<br>砍伐+10%，10分鐘</td><td>七寶素粥<br>砍伐+20%，10分鐘</td></tr>
+    <tr><td>尹千霜 - 勾欄瓦肆</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/尹千霜-勾欄瓦肆.png"></td><td>豆蔻飲<br>狩獵+10%，10分鐘</td><td>水晶皂兒<br>狩獵+20%，10分鐘</td></tr>
+    <tr><td>郝閑 - 鬼市子</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/郝閑-鬼市子.png"></td><td>黃泉釀<br>挖礦+10%，10分鐘</td><td>忘川渡<br>挖礦+20%，10分鐘</td></tr>
+    <tr><td>方甜甜 - 金明池</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/方甜甜-金明池.png"></td><td>葡萄飲子<br>釣魚+10%、挖礦+10%，20分鐘</td><td>櫻桃煎<br>釣魚+20%、挖礦+20%，20分鐘</td></tr>
+    <tr><td>大刀陳 - 御苑北</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/大刀陳-御苑北.png"></td><td>銀絲魚脍<br>採藥+10%、砍伐+10%，20分鐘</td><td>旋切魚脍<br>採藥+20%、砍伐+20%，20分鐘</td></tr>
+    <tr><td>王其順 - 承恩鎮</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/王其順-承恩鎮.png"></td><td>筍肉饅頭<br>狩獵+10%、挖礦+10%，20分鐘</td><td>通神餅<br>狩獵+20%、挖礦+20%，20分鐘</td></tr>
+    <tr><td>石面 - 承恩鎮</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/石面-承恩鎮.png"></td><td>蘿菔麵<br>砍伐+10%、釣魚+10%，20分鐘</td><td>百合麵<br>砍伐+20%、釣魚+20%，20分鐘</td></tr>
+    <tr><td>湯谷 - 鴻溝古渠</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/湯谷-鴻溝古渠.png"></td><td>冰涼茶湯<br>採藥+10%、釣魚+10%，20分鐘</td><td>水飯<br>採藥+20%、釣魚+20%，20分鐘</td></tr>
+    <tr><td>伏苓 - 清心圃</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/伏苓-清心圃.png"></td><td>金玉羹<br>採藥+10%、狩獵+10%，20分鐘</td><td>菊苗煎<br>採藥+20%、狩獵+20%，20分鐘</td></tr>
+    <tr><td>海無量 - 萬勝鎮</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/海無量-萬勝鎮.png"></td><td>老味胡辣湯<br>採藥+10%、挖礦+10%，20分鐘</td><td>兩摻兒<br>採藥+20%、挖礦+20%，20分鐘</td></tr>
+    <tr><td>馬曼兒 - 萬勝鎮</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/馬曼兒-萬勝鎮.png"></td><td>蕨菜餛飩<br>砍伐+10%、狩獵+10%，20分鐘</td><td>百味餛飩<br>砍伐+20%、狩獵+20%，20分鐘</td></tr>
+    <tr><td>鮮有餘 - 天上來</td><td class="img-box" onclick="openLightbox(this.querySelector('img'))"><img src="./images/鮮有餘-天上來.png"></td><td>醃鹹魚<br>狩獵+10%、釣魚+10%，20分鐘</td><td>鮑味鹹魚<br>狩獵+20%、釣魚+20%，20分鐘</td></tr>
+</table>
+
+<!-- 放大燈箱 -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="close" onclick="closeLightbox()">×</span>
+    <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+function openLightbox(img) {
+    if (img && img.src && img.src.includes('images/')) {
+        document.getElementById('lightbox-img').src = img.src;
+        document.getElementById('lightbox').classList.add('active');
+    }
+}
+function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+
+</body>
+</html>
